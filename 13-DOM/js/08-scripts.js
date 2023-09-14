@@ -1,4 +1,5 @@
-//  TRAVERSING recorrer los diferentes nodos o elementos de nuestro HTML
+//  TRAVERSING in the DOM
+// recorrer los diferentes nodos o elementos de nuestro HTML
 
 //-----TRAVERSING del padre al hijo--------
 const nav8 = document.querySelector('.navegacion');
