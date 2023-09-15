@@ -17,3 +17,5 @@ function mostrarOcultarFooter (){
     }
     console.log('diste click en el boton');
 }
+
+// final  DOM

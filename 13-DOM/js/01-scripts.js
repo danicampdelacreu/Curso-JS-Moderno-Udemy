@@ -1,3 +1,5 @@
+// DOM
+
 let elemento;
 
 elemento= document;
