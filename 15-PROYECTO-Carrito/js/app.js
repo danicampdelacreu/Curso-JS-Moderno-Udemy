@@ -39,11 +39,28 @@ function leerDatosCurso(curso) {
         id: curso.querySelector('a').getAttribute('data-id'), // para seleccionar atributo dentro de la a
         cantidad: 1,
     }
+    
+    // Revisa si elemento ya exsiste en el carrito
 
+    const existe = articulosCarrito.some ( curso => curso.id === infoCurso.id );// si tenemos dos elementos en el carriot esto va a iterar i accederemos a cada id que ya esta en el carrito
+    //console.log(existe);
+    if(existe){
+        // actualizamos la cantidad
+        const cursos = articulosCarrito.map( curso =>{
+            if(curso.id === infoCurso.id){
+                curso.cantidad++;
+                return curso;// con map creamos un array nuevo y asi se nos crea de nuevo en curso
+            }else{
+                return curso;// retorna los objectos que no son duplicados
+            }
+        });
+        articulosCarrito = [...cursos];
+    }else{
+        // agregamos el curso si no cumple existe
+        articulosCarrito = [...articulosCarrito, infoCurso];//... tomamos copia del carrito como esta, ( lo vamos llenando cada vez que agregamos algo de nuevo)
+    }
     //console.log(infoCurso); ver elementos que vamos teniendo dentro de infoCurso 
-    //Agrega elementos al array carrito
-    articulosCarrito = [...articulosCarrito, infoCurso];//... tomamos copia del carrito como esta, ( lo vamos llenando cada vez que agregamos algo de nuevo)
-
+   
     console.log(articulosCarrito);
 
     carritoHTML();// llamamos funcion de mas abajo
