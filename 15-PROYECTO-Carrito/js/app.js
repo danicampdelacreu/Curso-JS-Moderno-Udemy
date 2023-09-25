@@ -58,10 +58,17 @@ function carritoHTML() {
 
     //Recorre el carrito y genera el HTML
     articulosCarrito.forEach(curso => {
+        const { imagen, titulo, precio, cantidad, id} = curso;//extraemos valores de curso y nos crea la variable asi dentro de row. innerHTML no tendremos que escribir curso. y dejamos codigo mas limpio
         const row = document.createElement('tr');// tr por el html que ya tenemos creado como carrito
         row.innerHTML = `
             <td>
-                ${curso.titulo}
+                <img src = "${imagen}" width="100">
+            </td>
+            <td>${titulo}</td>
+            <td>${precio}</td>
+            <td>${cantidad}</td>
+            <td>
+                <a href="#" class="borrar-curso" data-id="${id}"> X </a>
             </td>
         `;
 
@@ -77,7 +84,7 @@ function limpiarHTML() {
     //forma lenta
     //  contenedorCarrito.innerHTML = '';
 
-    while(contenedorCarrito.firstChild){
+    while (contenedorCarrito.firstChild) {
         contenedorCarrito.removeChild(contenedorCarrito.firstChild)
     }
     // while limpia array antrior, antes de crear un array nuevo, porque mientras tenga hijos
