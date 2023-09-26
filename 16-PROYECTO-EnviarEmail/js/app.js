@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return
         }
         btnSubmit.classList.remove('opacity-50');
-        btnSubmit.desabled = false;
+        btnSubmit.disabled = false;
     }
 
     function resetFormulario() {
