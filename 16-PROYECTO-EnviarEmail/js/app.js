@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputMensaje = document.querySelector('#mensaje');
     const formulario = document.querySelector('#formulario');
     const btnSubmit = document.querySelector('#formulario button[type="submit"]');
+    const btnReset = document.querySelector('#formulario button[type="reset"]');
 
     //console.log(inputMensaje); comprobar que nos envie a log la info de cada input
 
@@ -24,23 +25,33 @@ document.addEventListener('DOMContentLoaded', function () {
     // (input) cada vez que escribamos en el input (validacion a tiempo real)
 
     inputEmail.addEventListener('input', validar);// llamamos a la funcion cuando suceda el evento si ponemos validar() la llamamos sin que suceda el evento
-
     inputAsunto.addEventListener('input', validar);
-
     inputMensaje.addEventListener('input', validar);
+
+    btnReset.addEventListener('click',function(e){
+        e.preventDefault();
+
+        // reiniciar el el objeto array
+        email.email='';
+        email.asunto='';
+        email.mensaje='';
+
+        formulario.reset();
+        comprobarEmail(); // llamamos funcion comprobarEmail
+    })
 
     // esta funcion nos trae el valor del elemento que escribimos en el input
     function validar(e) {
         if (e.target.value.trim() === '') { // .trim() elimina los espacios
             mostrarAlerta(`El campo ${e.target.id} es obligatorio`, e.target.parentElement) //${e.target.id} hace que alert diga el id del input que salimos
-            email[e.target.name] = "";// reiniciamos el objeto
+            email[e.target.name] = '';// reiniciamos el objeto
             comprobarEmail();
             return;// detiene la ejecucion del codigo cuando if es true
         }
 
         if (e.target.id === 'email' && !validarEmail(e.target.value)) {
             mostrarAlerta('email no es valido', e.target.parentElement) // pasamos referencia despues del mesaje para que valide
-            email[e.target.name] = "";// reniciamos el objecto
+            email[e.target.name] = '';// reniciamos el objecto
             comprobarEmail();
             return;
         }
