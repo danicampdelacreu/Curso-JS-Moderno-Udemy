@@ -25,9 +25,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function validar(e) {
         if (e.target.value.trim() === '') { // .trim() elimina los espacios
             mostrarAlerta(`El campo ${e.target.id} es obligatorio`, e.target.parentElement) //${e.target.id} hace que alert diga el id del input que salimos
-        } else {                                                                            //e.target.parentElement pasamos ref del div que contiene level como input
-            console.log('si hay algo');
+            return;// detiene la ejecucion del codigo cuando if es true
+        } 
+
+        if(e.target.id === 'email' && !validarEmail(e.target.value)){
+            mostrarAlerta('email no es valido',e.target.parentElement) // pasamos referencia despues del mesaje para que valide
+            return;
         }
+
+        limpiarAlerta(e.target.parentElement);
+       
 
     }
 
@@ -47,5 +54,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Inyectar error al from , agregamos elemento con appendChild
         referencia.appendChild(error) // le decimos a formulario que agregue un hijo que sera (error) 
+    }
+
+    function limpiarAlerta(referencia){
+        const alerta = referencia.querySelector('.bg-red-600');
+        if (alerta) { // alerta con referencia nos revisar si hay classe .bg-red-600 en el div que estamos saliendo
+            alerta.remove();// con el remove hace que nos elimine la alerta previa del div que hemos salido cuando se nos generan multiples alertes
+        }
+    }
+
+    function validarEmail(email) {
+        const regex =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+        const resultado = regex.test(email)
+        return resultado;
     }
 });
