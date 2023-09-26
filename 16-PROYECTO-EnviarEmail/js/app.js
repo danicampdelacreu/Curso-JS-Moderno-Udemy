@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const email = {
         email: '',
-        emailCC: '',
         asunto: '',
         mensaje: ''
     }
@@ -67,6 +66,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // esta funcion nos trae el valor del elemento que escribimos en el input
     function validar(e) {
 
+        if (e.target.id === 'emailCC' && !validarEmailCC(e.target.value)) {
+            mostrarAlerta('email no es valido', e.target.parentElement) // pasamos referencia despues del mesaje para que valide
+            return;
+            //----------PARTE DE RETO IMPLEMENTAR CC---------------
+        // comprobamos con if si emailCC es diferente a validarEmailCC 
+        }
+
+
         if (e.target.value.trim() === '') { // .trim() elimina los espacios
             mostrarAlerta(`El campo ${e.target.id} es obligatorio`, e.target.parentElement) //${e.target.id} hace que alert diga el id del input que salimos
             email[e.target.name] = '';// reiniciamos el objeto
@@ -80,15 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
             comprobarEmail();
             return;
         }
-
-        //----------PARTE DE RETO IMPLEMENTAR CC---------------
-        // comprobamos con if si emailCC es diferente a validarEmailCC 
-        if (e.target.id === 'emailCC' && !validarEmailCC(e.target.value)) {
-            mostrarAlerta('email no es valido', e.target.parentElement) // pasamos referencia despues del mesaje para que valide
-            email[e.target.name] = '';// reniciamos el objecto
-            comprobarEmail();
-            return;
-        }
+        
 
         limpiarAlerta(e.target.parentElement);
 
