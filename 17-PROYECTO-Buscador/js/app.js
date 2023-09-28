@@ -2,12 +2,12 @@
 
 // Variable
 const marca = document.querySelector('#marca');
-const year= document.querySelector('#year');
+const year = document.querySelector('#year');
 const minimo = document.querySelector('#minimo');
 const maximo = document.querySelector('#maximo');
 const puertas = document.querySelector('#puertas');
 const transmision = document.querySelector('#transmision');
-const color= document.querySelector('#color');
+const color = document.querySelector('#color');
 
 // contenedor para resultado
 const resultado = document.querySelector('#resultado');
@@ -28,7 +28,7 @@ const datosBusqueda = {
 }
 
 // eventos
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
     mostrarAutos(autos); // muestra lo autos al cargar
 
     //Llena las opaciones de años
@@ -45,12 +45,12 @@ marca.addEventListener('change', e => {
 
 year.addEventListener('change', e => {
     datosBusqueda.year = e.target.value;
-    
+
     filtrarAuto();
 })
 
 minimo.addEventListener('change', e => {
-    datosBusqueda.minimo = e.target.value; 
+    datosBusqueda.minimo = e.target.value;
 
     filtrarAuto();
 })
@@ -82,13 +82,13 @@ color.addEventListener('change', e => {
 
 
 // funciones
-function mostrarAutos(autos){
+function mostrarAutos(autos) {
 
     limpiarHTML(); // elimina html previo
 
-    autos.forEach(auto =>{
+    autos.forEach(auto => {
 
-        const { marca, modelo, year, precio, puertas, color, transmision} = auto;
+        const { marca, modelo, year, precio, puertas, color, transmision } = auto;
         const autoHTML = document.createElement('P');
 
         autoHTML.textContent = `
@@ -104,34 +104,53 @@ function mostrarAutos(autos){
 // limpiar resultado autoHTML
 
 function limpiarHTML() {
-    while(resultado.firstChild){
+    while (resultado.firstChild) {
         resultado.removeChild(resultado.firstChild)
     }
 }
 
 // Genera los años del select
 function llenarSelect() {
-    
-    for (let i = max; i >= min; i--){
+
+    for (let i = max; i >= min; i--) {
         const opcion = document.createElement('option');
         opcion.value = i;
         opcion.textContent = i;
         year.appendChild(opcion); // agrega las opciones de año al select
-    }   
+    }
 }
 
 // Funcion Filtrar auto
 
 function filtrarAuto() {
-    const resultado = autos.filter(filtrarMarca).filter( filtrarYear ).filter( filtrarMinimo ).filter( filtrarMaximo).filter( filtrarPuertas ).filter( filtrarTrans).filter( filtrarColor )
+    const resultado =
+        autos.filter(filtrarMarca).filter(filtrarYear)
+            .filter(filtrarMinimo).filter(filtrarMaximo).filter(filtrarPuertas)
+            .filter(filtrarTrans).filter(filtrarColor)
 
-    mostrarAutos(resultado);
-    console.log(resultado);
+
+
+    if (resultado.length) {
+        mostrarAutos(resultado);
+        console.log(resultado);
+    } else {
+        noResult();
+    }
+}
+
+function noResult() {
+    limpiarHTML();  // limpiamos primero el DIV y despues creamos el div con el error
+                    // asi nos saltara error sin los resultados anteriores  
+    const noResult = document.createElement('div');
+    noResult.classList.add('alerta', 'error')
+    noResult.textContent = 'No hay resultados para este tipo de busqueda'
+
+    resultado.appendChild(noResult); // agregamos noResult a resultado
 }
 
 function filtrarMarca(auto) {
     const { marca } = datosBusqueda;
-    if(marca){
+    if (marca) {
         return auto.marca === marca;
     }
     return auto;
@@ -139,8 +158,8 @@ function filtrarMarca(auto) {
 
 function filtrarYear(auto) {
     const { year } = datosBusqueda;
-    
-    if(year){
+
+    if (year) {
         return auto.year === parseInt(year);// parseInt para convertir que venga a numero no como string asi lo detecta bien
     }
     return auto;
@@ -148,8 +167,8 @@ function filtrarYear(auto) {
 
 function filtrarMinimo(auto) {
     const { minimo } = datosBusqueda;
-    
-    if(minimo){
+
+    if (minimo) {
         return auto.precio >= minimo;// nos trae los precios mayores a minimo marcado
     }
     return auto;
@@ -157,8 +176,8 @@ function filtrarMinimo(auto) {
 
 function filtrarMaximo(auto) {
     const { maximo } = datosBusqueda;
-    
-    if(maximo){
+
+    if (maximo) {
         return auto.precio <= maximo;// nos trae los precios mayores a minimo marcado
     }
     return auto;
@@ -166,7 +185,7 @@ function filtrarMaximo(auto) {
 
 function filtrarPuertas(auto) {
     const { puertas } = datosBusqueda;
-    if(puertas){
+    if (puertas) {
         return auto.puertas === puertas;
     }
     return auto;
@@ -174,7 +193,7 @@ function filtrarPuertas(auto) {
 
 function filtrarTrans(auto) {
     const { transmision } = datosBusqueda;
-    if(transmision){
+    if (transmision) {
         return auto.transmision === transmision;
     }
     return auto;
@@ -182,9 +201,9 @@ function filtrarTrans(auto) {
 
 function filtrarColor(auto) {
     const { color } = datosBusqueda;
-    if(color){
+    if (color) {
         return auto.color === color;
     }
     return auto;
-    
+
 }
