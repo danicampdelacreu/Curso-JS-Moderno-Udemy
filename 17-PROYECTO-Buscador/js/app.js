@@ -50,15 +50,19 @@ year.addEventListener('change', e => {
 })
 
 minimo.addEventListener('change', e => {
-    datosBusqueda.minimo = e.target.value;
+    datosBusqueda.minimo = e.target.value; 
+
+    filtrarAuto();
 })
 
 maximo.addEventListener('change', e => {
     datosBusqueda.maximo = e.target.value;
+
+    filtrarAuto();
 })
 
 puertas.addEventListener('change', e => {
-    datosBusqueda.puertas = e.target.value;
+    datosBusqueda.puertas = parseInt(e.target.value); // podemos convertir aqui tambien en numero con parseInt
 })
 
 transmision.addEventListener('change', e => {
@@ -113,7 +117,7 @@ function llenarSelect() {
 // Funcion Filtrar auto
 
 function filtrarAuto() {
-    const resultado = autos.filter(filtrarMarca).filter( filtrarYear )
+    const resultado = autos.filter(filtrarMarca).filter( filtrarYear ).filter( filtrarMinimo ).filter( filtrarMaximo)
 
     mostrarAutos(resultado);
     console.log(resultado);
@@ -132,6 +136,24 @@ function filtrarYear(auto) {
     
     if(year){
         return auto.year === parseInt(year);// parseInt para convertir que venga a numero no como string asi lo detecta bien
+    }
+    return auto;
+}
+
+function filtrarMinimo(auto) {
+    const { minimo } = datosBusqueda;
+    
+    if(minimo){
+        return auto.precio >= minimo;// nos trae los precios mayores a minimo marcado
+    }
+    return auto;
+}
+
+function filtrarMaximo(auto) {
+    const { maximo } = datosBusqueda;
+    
+    if(maximo){
+        return auto.precio <= maximo;// nos trae los precios mayores a minimo marcado
     }
     return auto;
 }
