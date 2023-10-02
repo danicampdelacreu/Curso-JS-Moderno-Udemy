@@ -9,6 +9,6 @@ const productoJSON = localStorage.getItem('producto');
 console.log(JSON.parse(productoJSON) );// nos trae de string a Objeto
 
 // obtener array
-const meses = localStorage.getItem('meses');
-const mesesArray = JSON.parse(meses);
+const meses2 = localStorage.getItem('meses');
+const mesesArray = JSON.parse(meses2);
 console.log(mesesArray);
