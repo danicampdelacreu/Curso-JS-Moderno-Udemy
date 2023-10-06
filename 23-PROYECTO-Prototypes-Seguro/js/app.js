@@ -1,9 +1,9 @@
 // -- PROYECTO SEGUROS CON PROTOTYPES ---
 
 // constructores
-function Seguro(marca, anio, tipo) {
+function Seguro(marca, year, tipo) {
     this.marca = marca;
-    this.anio = anio;
+    this.year = year;
     this.tipo = tipo;
 }
 Seguro.prototype.cotizarSeguro = function() {
@@ -28,7 +28,7 @@ Seguro.prototype.cotizarSeguro = function() {
     }
 
     // Leer el año
-    const diferencia = new Date().getFullYear() - this.anio;
+    const diferencia = new Date().getFullYear() - this.year;
     // Cada año de diferencia hay que reducir 3% el valor del seguro
     cantidad -= ((diferencia * 3) * cantidad) / 100;
     /*
@@ -69,16 +69,18 @@ Interfaz.prototype.mostrarMensaje = function(mensaje, tipo) {
 // Imprime el resultado de la cotización
 Interfaz.prototype.mostrarResultado = function(seguro, total) {
     const resultado = document.querySelector('#resultado');
-    let marca;
-    switch(seguro.marca) {
+    const { marca, year, tipo} = seguro;
+    let textoMarca;
+
+    switch(marca) {
          case '1':
-              marca = 'Americano';
+              textoMarca = 'Americano';
               break;
          case '2':
-              marca = 'Asiatico';
+              textoMarca = 'Asiatico';
               break;
          case '3':
-              marca = 'Europeo';
+              textoMarca = 'Europeo';
               break;
     }
     // Crear un div
@@ -87,9 +89,9 @@ Interfaz.prototype.mostrarResultado = function(seguro, total) {
     // Insertar la informacion
     div.innerHTML = `
          <p class='header'>Tu Resumen: </p>
-         <p class="font-bold">Marca: <span class="font-normal"> ${marca} </span> </p>
-         <p class="font-bold">Año: <span class="font-normal"> ${seguro.anio} </span> </p>
-         <p class="font-bold">Tipo: <span class="font-normal"> ${seguro.tipo} </span> </p>
+         <p class="font-bold">Marca: <span class="font-normal"> ${textoMarca} </span> </p>
+         <p class="font-bold">Año: <span class="font-normal"> ${year} </span> </p>
+         <p class="font-bold">Tipo: <span class="font-normal"> ${tipo} </span> </p>
          <p class="font-bold"> Total: <span class="font-normal"> $ ${total} </span> </p>
     `;
 
@@ -106,12 +108,12 @@ Interfaz.prototype.llenarOpciones = function () {
     const max = new Date().getFullYear(),
          min = max - 20;
 
-    const selectAnios = document.querySelector('#year');
+    const selectyears = document.querySelector('#year');
     for(let i = max; i > min; i--) {
          let option = document.createElement('option');
          option.value = i;
          option.innerHTML = i;
-         selectAnios.appendChild(option);
+         selectyears.appendChild(option);
     }   
 }
 
