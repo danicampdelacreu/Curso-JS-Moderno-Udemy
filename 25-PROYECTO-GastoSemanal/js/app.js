@@ -4,7 +4,6 @@
 const formulario = document.querySelector('#agregar-gasto');
 const gastolistado = document.querySelector('#gastos ul');
 
-
 // Eventos
 
 eventListeners();
@@ -22,7 +21,14 @@ class Presupuesto {
 }
 
 class UI {
+    insertarPresupuesto ( cantidad ){
+        // extremos valor
+        const { presupuesto , restante } = cantidad;
 
+        // agregamos al HTML
+        document.querySelector('#total').textContent = presupuesto;
+        document.querySelector('#restante').textContent = restante
+    }
 }
 
 
@@ -43,4 +49,6 @@ function preguntarPresupuesto(){
     // presupuesto valido
     presupuesto = new Presupuesto(presupuestoUsuario);
     console.log(presupuesto);
+
+    ui.insertarPresupuesto(presupuesto);
 }
