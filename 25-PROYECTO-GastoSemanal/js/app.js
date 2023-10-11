@@ -9,6 +9,8 @@ const gastolistado = document.querySelector('#gastos ul');
 eventListeners();
 function eventListeners(){
     document.addEventListener('DOMContentLoaded', preguntarPresupuesto);
+
+    formulario.addEventListener('submit',agregarGasto);
 }
 
 // Classes
@@ -17,6 +19,11 @@ class Presupuesto {
         this.presupuesto= Number( presupuesto );
         this.restante = Number( presupuesto );
         this.gastos = [];
+    }
+
+    nuevoGasto(gasto){
+        this.gastos = [...this.gastos, gasto];
+        console.log(this.gastos);
     }
 }
 
@@ -27,7 +34,31 @@ class UI {
 
         // agregamos al HTML
         document.querySelector('#total').textContent = presupuesto;
-        document.querySelector('#restante').textContent = restante
+        document.querySelector('#restante').textContent = restante;
+    }
+
+    imprimirAlerta(mensaje, tipo){
+        // crear div
+        const divMensaje = document.createElement('div');
+        divMensaje.classList.add('text-center', 'alert');
+
+        if(tipo === 'error'){
+            divMensaje.classList.add('alert-danger');
+        } else{
+            divMensaje.classList.add('alert-success');
+        }
+
+        //Mensaje de error
+        divMensaje.textContent = mensaje;
+
+        //insertar HTMl
+        document.querySelector('.primario').insertBefore( divMensaje, formulario );
+
+        // Quitar HTML
+        setTimeout(() => {
+            divMensaje.remove();
+        }, 3000);
+
     }
 }
 
@@ -35,6 +66,7 @@ class UI {
 // Instanciar
 const ui = new UI();
 let presupuesto;
+
 // Funciones
 
 function preguntarPresupuesto(){
@@ -51,4 +83,36 @@ function preguntarPresupuesto(){
     console.log(presupuesto);
 
     ui.insertarPresupuesto(presupuesto);
+}
+
+// Añade gastos
+
+function agregarGasto(e){
+    e.preventDefault();
+
+    // leer datos form
+    const nombre = document.querySelector('#gasto').value;
+    const cantidad = Number(document.querySelector('#cantidad').value);
+
+    // Validar
+    if (nombre === '' || cantidad === '' ){
+        ui.imprimirAlerta('Ambos campos obligatorios', 'error');
+
+        return;
+    } else if( cantidad <= 0 || isNaN(cantidad)){
+        ui.imprimirAlerta('Cantidad no valida', 'error')
+
+        return;  
+    }
+    // Generar objeto con gasto
+    const gasto = { nombre, cantidad, id: Date.now() }
+
+    // añade nuevo gasto
+    presupuesto.nuevoGasto( gasto )
+
+    // Mesaje todo correcto
+    ui.imprimirAlerta('Gasto agregado correcto')
+
+    // reinicia el formulario
+    formulario.reset();
 }
