@@ -23,7 +23,13 @@ class Presupuesto {
 
     nuevoGasto(gasto){
         this.gastos = [...this.gastos, gasto];
-        console.log(this.gastos);
+        this.calcularRestante();
+    }
+
+    calcularRestante(){
+        const gastado = this.gastos.reduce( (total, gasto) => total + gasto.cantidad, 0)  // reduce() nos va sumando lo del array continuamente
+        this.restante = this.presupuesto - gastado;
+        //console.log(this.restante); comprobamos si funciona
     }
 }
 
@@ -79,7 +85,7 @@ class UI {
             console.log(nuevoGasto);
 
             // Agregar html gasto
-            nuevoGasto.innerHTML = `${nombre} <span class="badge badge-primary badge-pill"> ${cantidad} </span>`;
+            nuevoGasto.innerHTML = `${nombre} <span class="badge badge-primary badge-pill"> € ${cantidad} </span>`;
 
             // boton borrar gasto
 
@@ -93,9 +99,35 @@ class UI {
             gastolistado.appendChild(nuevoGasto);
         })
     }
+
     limpiarHTML(){
         while( gastolistado.firstChild ){
             gastolistado.removeChild(gastolistado.firstChild);
+        }
+    }
+
+    actualizarRestante(restante){
+        document.querySelector('#restante').textContent = restante;
+    }
+
+    comprobarPresupuesto(presupuestoObj){
+        const { presupuesto, restante } = presupuestoObj;
+
+        const restanteDiv = document.querySelector('.restante');
+
+        // comprobar 25%
+        if(( presupuesto / 4 ) > restante ){
+            restanteDiv.classList.remove('alert-succes','alert-warning');
+            restanteDiv.classList.add('alert-danger');
+        } else if ( ( presupuesto / 2) > restante){
+            restanteDiv.classList.remove('alert-succes');
+            restanteDiv.classList.add('alert-warning');
+        }
+
+        // Avisar al pasarte del presupuesto mensual
+
+        if( restante <= 0){
+            ui.imprimirAlerta('Gastaste mas de lo previsto este mes', 'error');
         }
     }
 }
@@ -152,8 +184,12 @@ function agregarGasto(e){
     ui.imprimirAlerta('Gasto agregado correcto')
 
     // imprimir gastos
-    const { gastos } = presupuesto;
+    const { gastos, restante } = presupuesto;
     ui.agregarGastoListado( gastos );
+
+    ui.actualizarRestante(restante);
+
+    ui.comprobarPresupuesto(presupuesto);
 
     // reinicia el formulario
     formulario.reset();
