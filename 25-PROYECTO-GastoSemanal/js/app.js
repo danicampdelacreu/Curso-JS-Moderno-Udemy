@@ -31,6 +31,11 @@ class Presupuesto {
         this.restante = this.presupuesto - gastado;
         //console.log(this.restante); comprobamos si funciona
     }
+
+    eliminarGasto(id){
+        this.gastos = this.gastos.filter(gasto => gasto.id !== id);
+        this.calcularRestante();
+    }
 }
 
 class UI {
@@ -67,7 +72,7 @@ class UI {
 
     }
 
-    agregarGastoListado(gastos){
+    mostrarGastos(gastos){
         
         this.limpiarHTML(); // elimina html previo
 
@@ -88,14 +93,16 @@ class UI {
             nuevoGasto.innerHTML = `${nombre} <span class="badge badge-primary badge-pill"> € ${cantidad} </span>`;
 
             // boton borrar gasto
-
             const btnBorrar = document.createElement('button');
             btnBorrar.classList.add('btn', 'btn-danger', 'borrar-gasto');
             btnBorrar.innerHTML = 'Borrar &times';
+            btnBorrar.onclick= ()=>{
+                eliminarGasto(id);
+            }
             nuevoGasto.appendChild(btnBorrar);
 
-            // Agregar HTML
 
+            // Agregar HTML
             gastolistado.appendChild(nuevoGasto);
         })
     }
@@ -122,6 +129,9 @@ class UI {
         } else if ( ( presupuesto / 2) > restante){
             restanteDiv.classList.remove('alert-succes');
             restanteDiv.classList.add('alert-warning');
+        } else {
+            restanteDiv.classList.remove('alert-danger','alert-warning');
+            restanteDiv.classList.add('alert-succes');
         }
 
         // Avisar al pasarte del presupuesto mensual
@@ -185,7 +195,7 @@ function agregarGasto(e){
 
     // imprimir gastos
     const { gastos, restante } = presupuesto;
-    ui.agregarGastoListado( gastos );
+    ui.mostrarGastos( gastos );
 
     ui.actualizarRestante(restante);
 
@@ -193,4 +203,15 @@ function agregarGasto(e){
 
     // reinicia el formulario
     formulario.reset();
+}
+
+function eliminarGasto(id) {
+    // elimina gastos del objeto
+    presupuesto.eliminarGasto(id);
+
+    // elimina los gastos del HTML
+    const{ gastos, restante } = presupuesto;
+    ui.mostrarGastos(gastos);
+    ui.actualizarRestante(restante);
+    ui.comprobarPresupuesto(presupuesto);
 }
