@@ -21,12 +21,12 @@ let editando = false;
 // Eventos
 eventListeners();
 function eventListeners() {
-    nombreInput.addEventListener('change', datosCita);
-    direccionInput.addEventListener('change', datosCita);
-    telefonoInput.addEventListener('change', datosCita);
-    fechaInput.addEventListener('change', datosCita);
-    horaInput.addEventListener('change', datosCita);
-    tratamientoInput.addEventListener('change', datosCita);
+    nombreInput.addEventListener('input', datosCita);
+    direccionInput.addEventListener('input', datosCita);
+    telefonoInput.addEventListener('input', datosCita);
+    fechaInput.addEventListener('input', datosCita);
+    horaInput.addEventListener('input', datosCita);
+    tratamientoInput.addEventListener('input', datosCita);
 }
 
 const citaObj = {
