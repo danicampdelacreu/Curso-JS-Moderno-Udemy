@@ -242,6 +242,7 @@ function cargarEdicion(cita) {
     horaInput.value = hora;
     tratamientoInput.value = tratamiento;
 
+    // canviar texto botton
     formulario.querySelector('button[type="submit"]').textContent = 'Guardar Cambios';
 
     editando = true;
