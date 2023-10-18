@@ -1,11 +1,12 @@
 // PROYECTO RESERVAR CITAS //
 
-const mascotaInput = document.querySelector('#mascota');
-const propietarioInput = document.querySelector('#propietario');
+//SELECCIONAMOS ID DE IMPUTS
+const nombreInput = document.querySelector('#nombre');
+const direccionInput = document.querySelector('#direccion');
 const telefonoInput = document.querySelector('#telefono');
 const fechaInput = document.querySelector('#fecha');
 const horaInput = document.querySelector('#hora');
-const sintomasInput = document.querySelector('#sintomas');
+const tratamientoInput = document.querySelector('#tratamiento');
 
 // Contenedor para las citas
 const contenedorCitas = document.querySelector('#citas');
@@ -20,21 +21,21 @@ let editando = false;
 // Eventos
 eventListeners();
 function eventListeners() {
-    mascotaInput.addEventListener('change', datosCita);
-    propietarioInput.addEventListener('change', datosCita);
+    nombreInput.addEventListener('change', datosCita);
+    direccionInput.addEventListener('change', datosCita);
     telefonoInput.addEventListener('change', datosCita);
     fechaInput.addEventListener('change', datosCita);
     horaInput.addEventListener('change', datosCita);
-    sintomasInput.addEventListener('change', datosCita);
+    tratamientoInput.addEventListener('change', datosCita);
 }
 
 const citaObj = {
-    mascota: '',
-    propietario: '',
+    nombre: '',
+    direccion: '',
     telefono: '',
     fecha: '',
     hora:'',
-    sintomas: ''
+    tratamiento: ''
 }
 
 
@@ -90,19 +91,19 @@ class UI {
         this.limpiarHTML();
 
         citas.forEach(cita => {
-            const {mascota, propietario, telefono, fecha, hora, sintomas, id } = cita;
+            const {nombre, direccion, telefono, fecha, hora, tratamiento, id } = cita;
 
             const divCita = document.createElement('div');
             divCita.classList.add('cita', 'p-3');
             divCita.dataset.id = id;
 
             // scRIPTING DE LOS ELEMENTOS...
-            const mascotaParrafo = document.createElement('h2');
-            mascotaParrafo.classList.add('card-title', 'font-weight-bolder');
-            mascotaParrafo.innerHTML = `${mascota}`;
+            const nombreParrafo = document.createElement('h2');
+            nombreParrafo.classList.add('card-title', 'font-weight-bolder');
+            nombreParrafo.innerHTML = `${nombre}`;
 
-            const propietarioParrafo = document.createElement('p');
-            propietarioParrafo.innerHTML = `<span class="font-weight-bolder">Propietario: </span> ${propietario}`;
+            const direccionParrafo = document.createElement('p');
+            direccionParrafo.innerHTML = `<span class="font-weight-bolder">direccion: </span> ${direccion}`;
 
             const telefonoParrafo = document.createElement('p');
             telefonoParrafo.innerHTML = `<span class="font-weight-bolder">Teléfono: </span> ${telefono}`;
@@ -113,8 +114,8 @@ class UI {
             const horaParrafo = document.createElement('p');
             horaParrafo.innerHTML = `<span class="font-weight-bolder">Hora: </span> ${hora}`;
 
-            const sintomasParrafo = document.createElement('p');
-            sintomasParrafo.innerHTML = `<span class="font-weight-bolder">Síntomas: </span> ${sintomas}`;
+            const tratamientoParrafo = document.createElement('p');
+            tratamientoParrafo.innerHTML = `<span class="font-weight-bolder">Síntomas: </span> ${tratamiento}`;
 
             // Agregar un botón de eliminar...
             const btnEliminar = document.createElement('button');
@@ -130,12 +131,12 @@ class UI {
             btnEditar.innerHTML = 'Editar <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>'
 
             // Agregar al HTML
-            divCita.appendChild(mascotaParrafo);
-            divCita.appendChild(propietarioParrafo);
+            divCita.appendChild(nombreParrafo);
+            divCita.appendChild(direccionParrafo);
             divCita.appendChild(telefonoParrafo);
             divCita.appendChild(fechaParrafo);
             divCita.appendChild(horaParrafo);
-            divCita.appendChild(sintomasParrafo);
+            divCita.appendChild(tratamientoParrafo);
             divCita.appendChild(btnEliminar)
             divCita.appendChild(btnEditar)
 
@@ -156,10 +157,10 @@ const administrarCitas = new Citas();
 function nuevaCita(e) {
     e.preventDefault();
 
-    const {mascota, propietario, telefono, fecha, hora, sintomas } = citaObj;
+    const {nombre, direccion, telefono, fecha, hora, tratamiento } = citaObj;
 
     // Validar
-    if( mascota === '' || propietario === '' || telefono === '' || fecha === ''  || hora === '' || sintomas === '' ) {
+    if( nombre === '' || direccion === '' || telefono === '' || fecha === ''  || hora === '' || tratamiento === '' ) {
         ui.imprimirAlerta('Todos los mensajes son Obligatorios', 'error')
 
         return;
@@ -202,12 +203,12 @@ function nuevaCita(e) {
 
 function reiniciarObjeto() {
     // Reiniciar el objeto
-    citaObj.mascota = '';
-    citaObj.propietario = '';
+    citaObj.nombre = '';
+    citaObj.direccion = '';
     citaObj.telefono = '';
     citaObj.fecha = '';
     citaObj.hora = '';
-    citaObj.sintomas = '';
+    citaObj.tratamiento = '';
 }
 
 
@@ -219,24 +220,24 @@ function eliminarCita(id) {
 
 function cargarEdicion(cita) {
 
-    const {mascota, propietario, telefono, fecha, hora, sintomas, id } = cita;
+    const {nombre, direccion, telefono, fecha, hora, tratamiento, id } = cita;
 
     // Reiniciar el objeto
-    citaObj.mascota = mascota;
-    citaObj.propietario = propietario;
+    citaObj.nombre = nombre;
+    citaObj.direccion = direccion;
     citaObj.telefono = telefono;
     citaObj.fecha = fecha
     citaObj.hora = hora;
-    citaObj.sintomas = sintomas;
+    citaObj.tratamiento = tratamiento;
     citaObj.id = id;
 
     // Llenar los Inputs
-    mascotaInput.value = mascota;
-    propietarioInput.value = propietario;
+    nombreInput.value = nombre;
+    direccionInput.value = direccion;
     telefonoInput.value = telefono;
     fechaInput.value = fecha;
     horaInput.value = hora;
-    sintomasInput.value = sintomas;
+    tratamientoInput.value = tratamiento;
 
     formulario.querySelector('button[type="submit"]').textContent = 'Guardar Cambios';
 
