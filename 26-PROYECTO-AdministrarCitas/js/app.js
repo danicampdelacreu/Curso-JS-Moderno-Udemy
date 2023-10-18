@@ -18,7 +18,7 @@ formulario.addEventListener('submit', nuevaCita);
 let editando = false;
 
 
-// Eventos
+// Eventos registrar
 eventListeners();
 function eventListeners() {
     nombreInput.addEventListener('input', datosCita);
@@ -29,6 +29,7 @@ function eventListeners() {
     tratamientoInput.addEventListener('input', datosCita);
 }
 
+// objeto principal
 const citaObj = {
     nombre: '',
     direccion: '',
@@ -38,7 +39,7 @@ const citaObj = {
     tratamiento: ''
 }
 
-
+// Agrega datos a objetos de cita
 function datosCita(e) {
     //  console.log(e.target.name) // Obtener el Input
      citaObj[e.target.name] = e.target.value;
@@ -97,7 +98,7 @@ class UI {
             divCita.classList.add('cita', 'p-3');
             divCita.dataset.id = id;
 
-            // scRIPTING DE LOS ELEMENTOS...
+            // SCRIPTING DE LOS ELEMENTOS...
             const nombreParrafo = document.createElement('h2');
             nombreParrafo.classList.add('card-title', 'font-weight-bolder');
             nombreParrafo.innerHTML = `${nombre}`;
@@ -150,7 +151,7 @@ class UI {
         }
    }
 }
-
+//Instancias de classes
 const ui = new UI();
 const administrarCitas = new Citas();
 
@@ -214,6 +215,8 @@ function reiniciarObjeto() {
 
 function eliminarCita(id) {
     administrarCitas.eliminarCita(id);
+
+    ui.imprimirAlerta('La cita se elminó correctamente');
 
     ui.imprimirCitas(administrarCitas)
 }
