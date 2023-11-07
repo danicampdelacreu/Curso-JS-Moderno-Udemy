@@ -15,7 +15,7 @@ const sym2 = Symbol('symbol');
 // console.log( Symbol() === Symbol() );
 
 // Llaves de objetos únicas
-let nombre = Symbol();
+let nombre2 = Symbol();
 let apellido = Symbol();
 
 // Crear un objeto vacio
@@ -25,12 +25,12 @@ let persona = {}
 persona.datos;
 
 // debe tener corchetes
-persona[nombre] = 'Juan';
+persona[nombre2] = 'Juan';
 persona[apellido] = 'De la torre';
 persona.tipoCliente = 'Premium';
 persona.saldo = 500;
 console.log(persona);
-console.log(persona[nombre]);
+console.log(persona[nombre2]);
 
 // No se puede acceder al SYMBOL con un for.
 for(let i in persona) {
