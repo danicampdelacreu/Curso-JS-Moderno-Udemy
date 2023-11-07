@@ -21,9 +21,11 @@ console.log(cliente3.get('saldo'));
 // Métodos al MAP
 // Tamaño del MAP
 console.log(cliente3.size);
+
 // Contiene un valor
 console.log(cliente3.has('tipo'));
 console.log(cliente3.get('tipo'));
+
 // Borrar
 cliente3.delete('nombre');
 console.log(cliente3.has('nombre'));
