@@ -7,8 +7,10 @@ const ciudades = ['Londres', 'New York', 'Madrid', 'Paris'];
 const ordenes = new Set([123, 231, 131, 102]);
 const datos = new Map();
 
-datos.set('nombre', 'Juan');
+datos.set('nombre', 'Dani');
 datos.set('profesion', 'Desarrollador Web');
+
+// Entries iterator
 
 // entries a las ciudades
 for( let entry of ciudades.entries() ){
@@ -27,6 +29,7 @@ for( let entry of datos.entries() ){
 
 
 // Values iterator
+
 // values a las ciudades
 for(let value of ciudades.values()) {
     console.log(value);
@@ -44,6 +47,7 @@ for( let value of datos.values() ){
 
 
 // Keys iterator
+
 // keys a las ciudades
 for(let keys of ciudades.keys() ) {
     console.log(keys);
