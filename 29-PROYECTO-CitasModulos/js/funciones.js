@@ -1,3 +1,16 @@
+import Citas from './Classes/Citas,js';
+import UI from './Classes/UI.js';
+
+import {
+    nombreInput,
+    direccionInput,
+    telefonoInput,
+    fechaInput,
+    horaInput,
+    tratamientoInput,
+    formulario
+} from './selectores.js';
+
 //Instancias de classes
 const ui = new UI();
 const administrarCitas = new Citas();
@@ -11,31 +24,31 @@ const citaObj = {
     direccion: '',
     telefono: '',
     fecha: '',
-    hora:'',
+    hora: '',
     tratamiento: ''
 }
 
 // Agrega datos a objetos de cita
 export function datosCita(e) {
     //  console.log(e.target.name) // Obtener el Input
-     citaObj[e.target.name] = e.target.value;
+    citaObj[e.target.name] = e.target.value;
 }
 
 export function nuevaCita(e) {
     e.preventDefault();
 
-    const {nombre, direccion, telefono, fecha, hora, tratamiento } = citaObj;
+    const { nombre, direccion, telefono, fecha, hora, tratamiento } = citaObj;
 
     // Validar
-    if( nombre === '' || direccion === '' || telefono === '' || fecha === ''  || hora === '' || tratamiento === '' ) {
+    if (nombre === '' || direccion === '' || telefono === '' || fecha === '' || hora === '' || tratamiento === '') {
         ui.imprimirAlerta('Todos los mensajes son Obligatorios', 'error')
 
         return;
     }
 
-    if(editando) {
+    if (editando) {
         // Estamos editando
-        administrarCitas.editarCita( {...citaObj} );
+        administrarCitas.editarCita({ ...citaObj });
 
         ui.imprimirAlerta('Guardado Correctamente');
 
@@ -48,9 +61,9 @@ export function nuevaCita(e) {
 
         // Generar un ID único
         citaObj.id = Date.now();
-        
+
         // Añade la nueva cita
-        administrarCitas.agregarCita({...citaObj});
+        administrarCitas.agregarCita({ ...citaObj });
 
         // Mostrar mensaje de que todo esta bien...
         ui.imprimirAlerta('Se agregó correctamente')
@@ -89,7 +102,7 @@ export function eliminarCita(id) {
 
 export function cargarEdicion(cita) {
 
-    const {nombre, direccion, telefono, fecha, hora, tratamiento, id } = cita;
+    const { nombre, direccion, telefono, fecha, hora, tratamiento, id } = cita;
 
     // Reiniciar el objeto
     citaObj.nombre = nombre;

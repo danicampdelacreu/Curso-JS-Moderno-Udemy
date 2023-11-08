@@ -1,5 +1,8 @@
+import { eliminarCita, cargarEdicion } from '../funciones.js';
+import { contenedorCitas } from'../selectores.js';
 
 class UI {
+
     imprimirAlerta(mensaje, tipo) {
         // Crea el div
         const divMensaje = document.createElement('div');
@@ -81,6 +84,7 @@ class UI {
             contenedorCitas.appendChild(divCita);
         });    
    }
+
 
    limpiarHTML() {
         while(contenedorCitas.firstChild) {
