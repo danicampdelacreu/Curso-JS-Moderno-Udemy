@@ -9,8 +9,13 @@
 - 
 */
 
+let DB;
 document.addEventListener('DOMContentLoaded', () => {
     crmDB();
+
+    setTimeout (()=> {
+        crearCliente();
+    }, 5000) 
 })
 
 function crmDB() {
@@ -25,6 +30,7 @@ function crmDB() {
     // si se creo bien
     crmDB.onsuccess = function () {
         console.log('Base de datos Creada correctamente');
+        DB = crmDB.result;
     }
     // configuracion de la BBDD
     crmDB.onupgradeneeded = function (e){
@@ -35,7 +41,7 @@ function crmDB() {
             autoIncrement: true,
         });
 
-        // definir columnas
+        // definir columnas (esquema bbdd)
 
         objectStore.createIndex('nombre','nombre', { unique : false });
         objectStore.createIndex('email','email', { unique : true });
@@ -43,6 +49,28 @@ function crmDB() {
 
         console.log('columnas creadas');
     }
+}
+
+function crearCliente() {
+    let transaction = DB.transaction(['crm'], 'readwrite');
+
+    transaction.oncomplete = function() {
+        console.log('Transaccion completada');
+    }
+
+    transaction.onerror =function(){
+        console.log('Hubo un error');
+    }
+
+    const objectStore = transaction.objectStore('crm');
+    const nuevoClliente = {
+        telefono: 4564534,
+        nombre: 'Dani',
+        correo: 'correo@correo.com'
+    }
+
+    const peticion = objectStore.add(nuevoClliente);
+    console.log(peticion);
 }
 
 // Abrimos consola, escribimos window.indexDB y nos da todos los metodos que hay en indesDB
