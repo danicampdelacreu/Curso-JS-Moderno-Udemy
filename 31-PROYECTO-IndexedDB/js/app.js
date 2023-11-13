@@ -102,7 +102,8 @@ class UI {
        
         this.limpiarHTML();
 
-        // NUEVO : 
+        // Leer contenido BBDD
+
         const objectStore = DB.transaction('citas').objectStore('citas');
 
         const total = objectStore.count();
@@ -123,7 +124,7 @@ class UI {
                 divCita.classList.add('cita', 'p-3');
                 divCita.dataset.id = id;
 
-                // scRIPTING DE LOS ELEMENTOS...
+                // SCRIPTING DE LOS ELEMENTOS...
                 const mascotaParrafo = document.createElement('h2');
                 mascotaParrafo.classList.add('card-title', 'font-weight-bolder');
                 mascotaParrafo.innerHTML = `${mascota}`;
@@ -203,17 +204,17 @@ function nuevaCita(e) {
 
     if(editando) {
 
-        // NUEVO: 
+        // Edita en indexeDB
         const transaction = DB.transaction(['citas'], 'readwrite');
         const objectStore = transaction.objectStore('citas');
         // console.log(objectStore);
-        const peticion = objectStore.put(citaObj);
+        objectStore.put(citaObj);
 
         transaction.oncomplete = () => {
 
             console.log('Editado Correctamente.')
             
-            // Mover el código aqui..
+            
             // Estamos editando
             administrarCitas.editarCita( {...citaObj} );
 
@@ -243,7 +244,7 @@ function nuevaCita(e) {
         const transaction = DB.transaction(['citas'], 'readwrite');
         const objectStore = transaction.objectStore('citas');
         // console.log(objectStore);
-        const peticion = objectStore.add(citaObj);
+        objectStore.add(citaObj);
 
         transaction.oncomplete = () => {
             console.log('Cita agregada!');
@@ -355,7 +356,7 @@ function crearDB() {
         // guardamos el resultado
         DB = crearDB.result;
 
-        // mostrar citas al cargar
+        // mostrar citas al cargar ( pero indexedb ya esta listo)
         ui.imprimirCitas()
     }
 
