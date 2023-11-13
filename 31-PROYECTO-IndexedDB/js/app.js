@@ -239,7 +239,7 @@ function nuevaCita(e) {
         administrarCitas.agregarCita({...citaObj});
 
 
-        // NUEVO: 
+        // Insertar registro en indexeDB
         const transaction = DB.transaction(['citas'], 'readwrite');
         const objectStore = transaction.objectStore('citas');
         // console.log(objectStore);
