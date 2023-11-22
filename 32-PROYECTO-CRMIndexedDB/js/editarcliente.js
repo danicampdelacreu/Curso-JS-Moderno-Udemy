@@ -16,7 +16,7 @@
 
         conectarDB();
 
-        //
+        // actualizar cliente
         formulario.addEventListener('submit', actualizarCliente);
 
 
@@ -27,7 +27,7 @@
    
             setTimeout( () => {
                 obtenerCliente(idCliente);
-            }, 100);
+            }, 300);
         }
 
     });
@@ -36,7 +36,7 @@
     function conectarDB() {
         // ABRIR CONEXIÓN EN LA BD:
 
-        let abrirConexion = window.indexedDB.open('crm', 1);
+        const abrirConexion = window.indexedDB.open('crm', 1);
 
         // si hay un error, lanzarlo
         abrirConexion.onerror = function() {
@@ -58,11 +58,11 @@
 
         console.log(objectStore);
 
-        var request = objectStore.openCursor();
-        request.onsuccess = function(event) {
-            var cursor = event.target.result;
+        const cliente = objectStore.openCursor();
+        cliente.onsuccess = function(event) {
+            const cursor = event.target.result;
             if (cursor) {
-                if(cursor.value.id  == id ) {
+                if(cursor.value.id  === Number(id) ) {
                     // pasar el que estamos editando...
                     llenarFormulario(cursor.value);
                 }
@@ -114,9 +114,8 @@
             }, 3000);
         };
 
-        transaction.onerror = (error) => {
-            console.log(error);
-            console.log('Hubo un errorr.');
+        transaction.onerror = function(){
+            imprimirAlerta('Hubo un error','error')
         };
     }
 
