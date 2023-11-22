@@ -54,7 +54,7 @@
 
     function obtenerClientes() {
 
-        let abrirConexion = window.indexedDB.open('crm', 1);
+        const abrirConexion = window.indexedDB.open('crm', 1);
 
         // si hay un error, lanzarlo
         abrirConexion.onerror = function() {
@@ -100,9 +100,9 @@
                         </tr>
                     `;
         
-                    cursor.continue();
+                    cursor.continue();// traer el siguiento objeto uno tras otro
                  } else {
-                    //  console.log('llegamos al final...');
+                    //  console.log('No hay mas registros...');
                  }
              };
 

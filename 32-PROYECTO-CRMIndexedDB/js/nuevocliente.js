@@ -14,7 +14,7 @@
     function conectarDB() {
         // ABRIR CONEXIÓN EN LA BD:
 
-        let abrirConexion = window.indexedDB.open('crm', 1);
+        const abrirConexion = window.indexedDB.open('crm', 1);
 
         // si hay un error, lanzarlo
         abrirConexion.onerror = function() {
@@ -47,7 +47,7 @@
         // crear un nuevo objeto con toda la info
 
         const cliente = {
-            nombre, 
+            nombre,
             email,
             telefono,
             empresa
@@ -84,7 +84,7 @@
 
         transaction.onerror = () => {
             console.log('Hubo un error!');
-            imprimirAlerta('Hubo un Error', 'error');
+            imprimirAlerta('El correo ya esta registrado', 'error');
         };
     }
 
