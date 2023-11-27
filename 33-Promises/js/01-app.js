@@ -1,17 +1,17 @@
 // PROMISES callbacks //
 
-const paises = ['francia', 'España','Portugal','Austrialia', 'Inglaterra'];
+const paises1 = ['francia', 'España','Portugal','Austrialia', 'Inglaterra'];
 
-function nuevoPais(pais, callback) {
+function nuevoPais(pais1, callback) {
     setTimeout(() => {
-        paises.push(pais);
+        paises1.push(pais1);
         callback();
     }, 2000);
 }
 function mostrarPaises(){
     setTimeout(() => {
-        paises.forEach(pais => {
-            console.log(pais);
+        paises1.forEach(pais1 => {
+            console.log(pais1);
         })
     },1000);
 }
