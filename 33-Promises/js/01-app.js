@@ -1,4 +1,4 @@
-// PROMISES callbacks //
+// callbacks //
 
 const paises1 = ['francia', 'España','Portugal','Austrialia', 'Inglaterra'];
 
