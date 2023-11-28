@@ -9,3 +9,11 @@ notificarBtn.addEventListener('click', () => {
             console.log('el resultado es', res);
         })
 })
+
+const verNotificacion = document.querySelector('#verNotificacion');
+verNotificacion.addEventListener('click', () => {
+    if(Notification.permission === 'granted'){
+        new Notification('Esta es la notificacion')
+        console.log('Se notifico correcto');
+    }
+});
