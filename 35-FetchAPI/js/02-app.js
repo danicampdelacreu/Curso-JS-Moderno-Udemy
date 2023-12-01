@@ -11,7 +11,7 @@ function obtenerDatos() {
 }
 
 function mostrarHTML({empresa,  id, nombre, trabajo}){
-    const contenido = document.querySelector('.contenido');
+    const contenido = document.querySelector('.contenido'); //.contenido carga en una pagina nueva
 
     contenido.innerHTML = `
         <p>Empleado: ${nombre} </p>
