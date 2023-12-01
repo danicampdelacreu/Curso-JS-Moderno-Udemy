@@ -1,1 +1,1 @@
-Informacion desde un archivo .txt
+Aqui tenemos la info enviada desde un archivo .txt
