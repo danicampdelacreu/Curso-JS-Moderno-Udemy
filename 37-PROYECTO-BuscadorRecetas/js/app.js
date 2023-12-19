@@ -192,7 +192,7 @@ function iniciarApp() {
 
     function existeStorage(id) {
         const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
-        return favoritos.some(favorito => favorito.id === id);
+        return favoritos.some(favorito => favorito.id === id); // some itera sobre todos los elementos del array
     }
 
     function mostrarToast(mensaje) {
