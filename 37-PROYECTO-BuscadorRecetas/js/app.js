@@ -140,7 +140,7 @@ function iniciarApp() {
         modalBody.appendChild(listGroup);
 
         const modalFooter = document.querySelector('.modal-footer');
-        limpiarHtml(modalFooter);
+        limpiarHtml(modalFooter); // limpiamos para no ir añadiendo hijos cada vez que generamos un nuevo modal
 
         // Botones de cerrar y favorito
         const btnFavorito = document.createElement('BUTTON');
