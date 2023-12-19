@@ -85,7 +85,7 @@ function iniciarApp() {
             }
 
 
-            // Inyectar en el código HTML
+            // Inyectar en el código HTML 
             recetaCardBody.appendChild(recetaHeading);
             recetaCardBody.appendChild(recetaButton);
 
