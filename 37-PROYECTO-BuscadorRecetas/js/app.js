@@ -66,7 +66,7 @@ function iniciarApp() {
             const recetaImagen = document.createElement('IMG');
             recetaImagen.classList.add('card-img-top');
             recetaImagen.alt = `Imagen de la receta ${strMeal ?? receta.titulo}`;
-            recetaImagen.src = strMealThumb ?? receta.img;
+            recetaImagen.src = strMealThumb ?? receta.img; // ?? receta.img es para que coja lo que tenemos en el localstorage ya que no pedimos info a la api en favoritos
 
             const recetaCardBody = document.createElement('DIV');
             recetaCardBody.classList.add('card-body');
