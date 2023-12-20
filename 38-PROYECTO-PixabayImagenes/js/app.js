@@ -3,9 +3,11 @@
 
 const resultado  = document.querySelector('#resultado');
 const formulario  = document.querySelector('#formulario');
+const paginacionDiv  = document.querySelector('#paginacion');
 
 const registrosPorPagina = 40;
 let totalPaginas;
+let iterador;
 
 window.onload = () => {
     formulario.addEventListener('submit', validarFormulario);
@@ -49,23 +51,32 @@ function mostrarAlerta(mensaje){
 
 function buscarImagens(termino) {
     const key ='41364789-abb2225bbfc3faae3dc582457';
-    const url =`https://pixabay.com/api/?key=${key}&q=${termino}&per_page=100`;
+    const url =`https://pixabay.com/api/?key=${key}&q=${termino}&per_page=${registrosPorPagina}`;
 
     fetch(url)
         .then(res => res.json())
         .then(resultado => {
-            //console.log(resultado)
             totalPaginas = calcularPaginas(resultado.totalHits);
-            //console.log(totalPaginas);
             mostarImagenes(resultado.hits);
         })
 }
+
+// Generador que va a registrar la cantidad de elementos de acuerdo a las paginas 
+function *crearPaginador(total) {
+    console.log(total);
+    for( let i = 1; i <= total; i++ ) {
+        yield i;
+    }
+}
+
 
 function calcularPaginas(total) {
     return parseInt(Math.ceil(total / registrosPorPagina));
 }
 
 function mostarImagenes(imagenes) {
+    //console.log(imagenes);
+
     while(resultado.firstChild) {
         resultado.removeChild(resultado.firstChild);
     }
@@ -95,4 +106,34 @@ function mostarImagenes(imagenes) {
             </div>
             `;    
     })
+    
+    // limipiar el paginador de la busqueda previa
+
+    while(paginacionDiv.firstChild){
+        paginacionDiv.removeChild(paginacionDiv.firstChild)
+    }
+
+    // Generamos el nuevo HTML
+    imprimirPaginador();
+}
+
+function imprimirPaginador() {
+    iterador = crearPaginador(totalPaginas);
+
+    while(true){
+        const { value, done } = iterador.next();
+        if(done) return;
+
+        // en casos contrario generar boton por cada elemento
+        const btn= document.createElement('a');
+        btn.href = '#';
+        btn.dataset.pagina = value;
+        btn.textContent = value;
+        btn.classList.add('siguente', 'mx-auto', 'bg-yellow-400', 'px-4', 'py-1,', 'mr-2', 'font-bold', 'mb-10', 'uppercase', 'rounded');
+
+        paginacionDiv.appendChild(btn)
+
+    }
+    //(iterador.next().value);// total valor registradro de yelt
+    //(iterador.next().done);// si llego al final de los iteradores
 }
